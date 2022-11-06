@@ -17,17 +17,17 @@ exports.run = (bot, message, args) => {
         }
 
         if (message.content.toUpperCase().includes('LOLI') || message.content.toUpperCase().includes('GORE')) return message.channel.send('That kind of stuff is not allowed! Not even in NSFW channels!');
-var hentai = "sex"
-        var query = "yaoi";
-        booru.search('gelbooru', [query], {nsfw: true, limit: 1, random: true })
+
+        var query = message.content.split(/\s+/g).slice(1).join(" ");
+        booru.search('danbooru', [query], {nsfw: true, limit: 1, random: true })
             .then(booru.commonfy)
             .then(images => {
                 for (let image of images) {
                     const embed = new Discord.RichEmbed()
-                    .setTitle("Hentai:")
+                    .setTitle("Danbooru:")
                     .setImage(image.common.file_url)
                     .setColor('#000000')
-                    .setFooter(`Tags: ${query}`)
+                    .setFooter(`Tags: danbooru ${query}`)
                     .setURL(image.common.file_url);
                     return message.channel.send({ embed });
                 }
